@@ -1,4 +1,9 @@
-.todo__Container {
+.todo__container {
+	min-height: 100vh;
+	min-width: 100vw;
+}
+
+.todo__content {
 	background-color: #ffffff;
 	height: 85vh;
 	width: 90vw;

@@ -6,7 +6,7 @@ import LoginRoute from './routes/LoginRoute';
 import TodoRoute from './routes/TodoRoute';
 
 function App() {
-	const [ isAuthenticated, setIsAuthenticated ] = useState(true);
+	const [ isAuthenticated, setIsAuthenticated ] = useState(false);
 	return <div>{isAuthenticated ? <TodoRoute /> : <LoginRoute />}</div>;
 }
 

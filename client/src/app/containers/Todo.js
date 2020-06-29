@@ -4,9 +4,9 @@ import Header from '../components/Header';
 
 const Todo = () => {
 	return (
-		<div>
+		<div className="todo__container">
 			<Header />
-			<div className="todo__Container">Todo List will be added here</div>
+			<div className="todo__content">Todo List will be added here</div>
 		</div>
 	);
 };
