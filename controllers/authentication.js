@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const Users = require('../models/accountDetails');
-const Todos = require('../models/userTodos');
+const Users = require('../models/users');
+const Todos = require('../models/todos');
 
 exports.getLogin = async (request, response) => {
 	try {
