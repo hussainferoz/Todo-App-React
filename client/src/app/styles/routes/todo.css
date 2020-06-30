@@ -23,10 +23,13 @@
 }
 
 .todo__appbar {
+	display: flex !important;
+	flex-direction: row !important;
+	justify-content: space-between;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+	height: 10vh;
+	background-color: #ffffff !important;
 }
 
 .noDisplay {
@@ -36,4 +39,19 @@
 .display {
 	display: flex;
 	flex-grow: 1;
+}
+
+.add__task {
+	height: 40px;
+	margin-top: auto !important;
+	margin-bottom: auto !important;
+	margin-right: 20px !important;
+}
+
+.PrivateTabIndicator-colorPrimary-2 {
+	display: none;
+}
+
+.MuiTabs-flexContainer {
+	height: -webkit-fill-available;
 }

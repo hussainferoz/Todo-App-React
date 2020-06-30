@@ -1,22 +1,11 @@
 import React, { useState } from 'react';
 
-import { AppBar, Tabs, Tab, Box, Typography } from '@material-ui/core';
+import { AppBar, Tabs, Tab, Button } from '@material-ui/core';
 
 import Header from '../components/Header';
-
-function TabPanel(props) {
-	const { children, value, index, ...other } = props;
-
-	return (
-		<div className={value !== index ? 'noDisplay' : 'display'} {...other}>
-			{value === index && (
-				<div>
-					<Typography>{children}</Typography>
-				</div>
-			)}
-		</div>
-	);
-}
+import ListHead from '../components/ListHead';
+import NoItems from '../components/NoItems';
+import TabPanel from '../components/TabPanel';
 
 const Todo = () => {
 	const [ value, setValue ] = useState(0);
@@ -35,22 +24,24 @@ const Todo = () => {
 						onChange={handleTabsChange}
 						indicatorColor="primary"
 						textColor="primary"
-						variant="fullWidth"
-						aria-label="full width tabs example"
+						// variant="fullWidth"
 					>
-						<Tab label="All Tasks" />
-						<Tab label="New Tasks" />
-						<Tab label="Completed Tasks" />
+						<Tab label="All Todos" />
+						<Tab label="New Todos" />
+						<Tab label="Completed Todos" />
 					</Tabs>
+					<Button variant="contained" color="primary" className="add__task">
+						Add Task
+					</Button>
 				</AppBar>
 				<TabPanel value={value} index={0}>
-					Item One
+					{true ? <ListHead /> : <NoItems>No Available Todos</NoItems>}
 				</TabPanel>
 				<TabPanel value={value} index={1}>
-					Item Two
+					{true ? <ListHead /> : <NoItems>No New Todos</NoItems>}
 				</TabPanel>
 				<TabPanel value={value} index={2}>
-					Item Three
+					{true ? <ListHead /> : <NoItems>No Completed Todos</NoItems>}
 				</TabPanel>
 			</div>
 		</div>
