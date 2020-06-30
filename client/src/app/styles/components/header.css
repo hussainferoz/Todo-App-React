@@ -8,9 +8,21 @@
 	height: 10vh;
 	width: 90vw;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	margin-right: auto;
 	margin-left: auto;
 	color: white;
+}
+
+.header__bar__left {
+	margin-left: 20px;
+}
+
+.header__bar__right {
+	margin-right: 20px;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	width: 140px;
 }
