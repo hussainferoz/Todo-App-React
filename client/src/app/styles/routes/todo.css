@@ -18,9 +18,22 @@
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	box-shadow: 2px 4px 10px 2px rgba(80, 80, 80, 0.5);
-
-	/* remove */
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	flex-direction: column;
+}
+
+.todo__appbar {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.noDisplay {
+	display: none;
+}
+
+.display {
+	display: flex;
+	flex-grow: 1;
 }
