@@ -3,10 +3,41 @@ import Axios from 'axios';
 export const UPDATE_TODOS = 'UPDATE_TODOS';
 export const SET_USER_DATA = 'SET_USER_DATA';
 
-export const updateTodo = (todos) => (dispatch) => {
+export const addTodo = (newTodoItem, updatedTodo, token) => async (dispatch) => {
+	const { todoName, isDeleted } = newTodoItem;
+	await Axios.post(
+		'/api/todo/add',
+		{ todo: { todoName, isDeleted } },
+		{
+			headers: {
+				'auth-token': token
+			}
+		}
+	);
+
 	dispatch({
 		type: UPDATE_TODOS,
-		todos
+		todos: updatedTodo
+	});
+};
+
+export const deleteTodo = (valueIndex, todos, token) => async (dispatch) => {
+	const updatedTodo = todos;
+	updatedTodo[valueIndex].isDeleted = true;
+
+	await Axios.post(
+		'/api/todo/delete',
+		{ valueIndex },
+		{
+			headers: {
+				'auth-token': token
+			}
+		}
+	);
+
+	dispatch({
+		type: UPDATE_TODOS,
+		todos: updatedTodo
 	});
 };
 

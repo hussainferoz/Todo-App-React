@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 
 import {
 	AppBar,
@@ -15,7 +15,7 @@ import {
 	CircularProgress
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTodo, fetchUserData } from '../redux/actions/todoActions';
+import { addTodo, deleteTodo, fetchUserData } from '../redux/actions/todoActions';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -34,6 +34,7 @@ const Todo = () => {
 	});
 	const [ modalVisibility, setModalVisibility ] = useState(false);
 	const [ todoNameValue, setTodoNameValue ] = useState('');
+	const [ addLoading, setAddLoading ] = useState(false);
 
 	useEffect(() => {
 		dispatch(fetchUserData(token));
@@ -42,12 +43,14 @@ const Todo = () => {
 	const dispatch = useDispatch();
 
 	const handleDelete = (valueIndex) => {
-		dispatch(updateTodo(todos.map((todo, index) => (index === valueIndex ? { ...todo, isDeleted: true } : todo))));
+		dispatch(deleteTodo(valueIndex, todos, token));
 	};
 
 	const handleAddTodo = () => {
 		if (todoNameValue) {
-			dispatch(updateTodo([ { todoName: todoNameValue, isDeleted: false }, ...todos ]));
+			const newTodoItem = { todoName: todoNameValue, isDeleted: false };
+			const updatedTodo = [ newTodoItem, ...todos ];
+			dispatch(addTodo(newTodoItem, updatedTodo, token));
 			setTodoNameValue('');
 			setModalVisibility(false);
 		}
@@ -84,12 +87,18 @@ const Todo = () => {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleModalClose} color="primary">
-						Cancel
-					</Button>
-					<Button onClick={handleAddTodo} color="primary">
-						Add Todo
-					</Button>
+					{addLoading ? (
+						<CircularProgress style={{ marginRight: 15 }} />
+					) : (
+						<Fragment>
+							<Button onClick={handleModalClose} color="primary">
+								Cancel
+							</Button>
+							<Button onClick={handleAddTodo} color="primary">
+								Add Todo
+							</Button>
+						</Fragment>
+					)}
 				</DialogActions>
 			</Dialog>
 

@@ -2,12 +2,17 @@ const express = require('express');
 
 const router = express.Router();
 
-const { updateTodo } = require('../controllers/todos');
+const { addTodo, deleteTodo } = require('../controllers/todos');
 const authMiddleware = require('../middleware/authentication');
 
-//@route    POST /api/todo/update
-//@desc     update todo item in the database
+//@route    POST /api/todo/add
+//@desc     Add todo item to the database
 //@access   Private
-router.post('/update', authMiddleware, updateTodo);
+router.post('/add', authMiddleware, addTodo);
+
+//@route    POST /api/todo/delete
+//@desc     Delete todo item from database
+//@access   Private
+router.post('/delete', authMiddleware, deleteTodo);
 
 module.exports = router;

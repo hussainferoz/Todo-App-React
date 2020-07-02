@@ -1,8 +1,18 @@
 const Users = require('../models/users');
 
-exports.updateTodo = async (request, response) => {
+exports.addTodo = async (request, response) => {
 	const userId = request.userId;
-	const { todos } = request.body;
-	await Users.findByIdAndUpdate(userId, { $set: { todos } });
-	response.json({ message: 'Todo list SuccessFully Updated' });
+	const { todo } = request.body;
+	await Users.findByIdAndUpdate(userId, { $push: { todos: todo } });
+	response.json({ message: 'Todo item successfully added' });
+};
+
+exports.deleteTodo = async (request, response) => {
+	const userId = request.userId;
+	const { valueIndex } = request.body;
+	await Users.findByIdAndUpdate(userId, null, null, (error, doc) => {
+		doc.todos[valueIndex].isDeleted = true;
+		doc.save();
+	});
+	response.json({ message: 'Todo item successfully deleted' });
 };
