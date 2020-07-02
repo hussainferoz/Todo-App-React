@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 
 const connectDb = require('./config/database');
 const authRouter = require('./routes/authentication');
+const todoRouter = require('./routes/todoRoute');
 
 //Access env variables
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json({ extended: false }));
 
 //Routes
 app.use('/api/login', authRouter);
+app.use('/api/todo', todoRouter);
 
 const port = 5000;
 
