@@ -13,6 +13,8 @@ import {
 	TextField,
 	DialogActions
 } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTodo } from '../redux/actions/todoActions';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -20,26 +22,25 @@ import NoItems from '../components/NoItems';
 import TabPanel from '../components/TabPanel';
 
 const Todo = () => {
-	const [ testData, settestData ] = useState([
-		{ todoName: 'Bread', isDeleted: false },
-		{ todoName: 'Butter', isDeleted: false },
-		{ todoName: 'Eggs', isDeleted: false }
-	]);
+	const todos = useSelector((state) => state.todoReducer.todos);
 	const [ modalVisibility, setModalVisibility ] = useState(false);
 	const [ todoNameValue, setTodoNameValue ] = useState('');
 
+	const dispatch = useDispatch();
+
 	const handleDelete = (valueIndex) => {
-		settestData(testData.map((todo, index) => (index == valueIndex ? { ...todo, isDeleted: true } : todo)));
+		dispatch(updateTodo(todos.map((todo, index) => (index === valueIndex ? { ...todo, isDeleted: true } : todo))));
 	};
 
 	const handleAddTodo = () => {
 		if (todoNameValue) {
-			settestData([ { todoName: todoNameValue, isDeleted: false }, ...testData ]);
+			dispatch(updateTodo([ { todoName: todoNameValue, isDeleted: false }, ...todos ]));
+			setTodoNameValue('');
 			setModalVisibility(false);
 		}
 	};
 
-	const todoAvailable = testData.find((element) => element.isDeleted === false);
+	const todoAvailable = todos.find((element) => element.isDeleted === false);
 
 	const handleModalClose = () => {
 		setModalVisibility(false);
@@ -103,7 +104,7 @@ const Todo = () => {
 							<Lists head />
 
 							{todoAvailable ? (
-								testData.map(
+								todos.map(
 									(todo, index) =>
 										todo.isDeleted ? null : (
 											<Lists
