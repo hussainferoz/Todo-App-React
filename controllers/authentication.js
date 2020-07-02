@@ -2,17 +2,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const Users = require('../models/users');
-const Todos = require('../models/todos');
 
 exports.getLogin = async (request, response) => {
 	try {
-		const { todoId } = request.user;
+		const userId = request.userId;
 
-		let userTodos = null;
-
-		//Find the user's todos by todoId and return the data to the user
-		userTodos = await Todos.findById(todoId);
-		return response.json({ userTodos });
+		//Find the user's data by userId and return the data to the user
+		const { fullName, todos } = await Users.findById(userId);
+		return response.json({ fullName, todos });
 	} catch (error) {
 		console.error(error.message);
 		return response.json({ message: 'Server Error' });
@@ -37,11 +34,11 @@ exports.postLogin = async (request, response) => {
 			return response.json({ message: 'Invalid email or password' });
 		}
 
-		const { todoId } = user;
+		const { _id } = user;
 
 		//create token payload
 		const payload = {
-			todoId
+			userId: _id
 		};
 
 		//create jwt token with payload and send to the user

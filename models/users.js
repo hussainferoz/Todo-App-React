@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const UsersSchema = mongoose.Schema({
-	todoId: {
-		type: mongoose.Schema.Types.ObjectId
-	},
 	email: {
 		type: String,
 		required: true,
@@ -13,10 +10,16 @@ const UsersSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	createdOn: {
+	fullName: {
 		type: String,
-		default: new Date().toLocaleString('en-US', { timeZone: 'Asia/Karachi' })
-	}
+		required: true
+	},
+	todos: [
+		{
+			todoName: String,
+			isDeleted: Boolean
+		}
+	]
 });
 
 module.exports = mongoose.model('users', UsersSchema);

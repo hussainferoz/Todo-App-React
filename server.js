@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 
 const connectDb = require('./config/database');
+const authRouter = require('./routes/authentication');
 
 //Access env variables
 dotenv.config();
@@ -11,7 +12,13 @@ connectDb();
 
 const app = express();
 
-const port = process.env.PORT || 5000;
+//MiddleWares
+app.use(express.json({ extended: false }));
+
+//Routes
+app.use('/api/login', authRouter);
+
+const port = 5000;
 
 const server = app.listen(port, () => {
 	console.log(`Server is running on port ${port}`);
