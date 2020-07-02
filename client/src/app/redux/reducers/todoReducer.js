@@ -1,11 +1,7 @@
 import { UPDATE_TODOS } from '../actions/todoActions';
 
 const initialState = {
-	todos: [
-		{ todoName: 'Bread', isDeleted: false },
-		{ todoName: 'Butter', isDeleted: false },
-		{ todoName: 'Eggs', isDeleted: false }
-	]
+	todos: []
 };
 
 const todoReducer = (state = initialState, action) => {

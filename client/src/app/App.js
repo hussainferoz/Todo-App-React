@@ -5,16 +5,18 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-//Routes
-import LoginRoute from './routes/LoginRoute';
-import TodoRoute from './routes/TodoRoute';
+import RootContainer from './containers/RootContainer';
 import todoReducer from './redux/reducers/todoReducer';
+import authReducer from './redux/reducers/authReducer';
 
-const store = createStore(combineReducers({ todoReducer }), applyMiddleware(thunk));
+const store = createStore(combineReducers({ todoReducer, authReducer }), applyMiddleware(thunk));
 
 function App() {
-	const [ isAuthenticated, setIsAuthenticated ] = useState(true);
-	return <Provider store={store}>{isAuthenticated ? <TodoRoute /> : <LoginRoute />}</Provider>;
+	return (
+		<Provider store={store}>
+			<RootContainer />
+		</Provider>
+	);
 }
 
 export default App;
