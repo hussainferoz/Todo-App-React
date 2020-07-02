@@ -46,3 +46,10 @@
 .MuiTabs-flexContainer {
 	height: -webkit-fill-available;
 }
+
+.todo__all__list {
+	display: flex;
+	flex-direction: column;
+	max-height: 75vh;
+	overflow-y: auto;
+}

@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { AccountCircleOutlined } from '@material-ui/icons';
 
-const header = () => {
+const header = ({ fullName }) => {
 	return (
 		<div className="header__container">
 			<div className="header__bar">
@@ -12,7 +12,7 @@ const header = () => {
 				</div>
 				<div className="header__bar__right">
 					<AccountCircleOutlined />
-					<Typography>Hussain Feroz</Typography>
+					<Typography>{fullName}</Typography>
 				</div>
 			</div>
 		</div>

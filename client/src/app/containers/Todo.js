@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
 	AppBar,
@@ -14,7 +14,7 @@ import {
 	DialogActions
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTodo } from '../redux/actions/todoActions';
+import { updateTodo, fetchUserData } from '../redux/actions/todoActions';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -22,9 +22,20 @@ import NoItems from '../components/NoItems';
 import TabPanel from '../components/TabPanel';
 
 const Todo = () => {
-	const todos = useSelector((state) => state.todoReducer.todos);
+	const { fullName, todos, token } = useSelector((state) => {
+		const { todoReducer: { fullName, todos }, authReducer: { token } } = state;
+		return {
+			fullName,
+			todos,
+			token
+		};
+	});
 	const [ modalVisibility, setModalVisibility ] = useState(false);
 	const [ todoNameValue, setTodoNameValue ] = useState('');
+
+	useEffect(() => {
+		dispatch(fetchUserData(token));
+	}, []);
 
 	const dispatch = useDispatch();
 
@@ -80,7 +91,7 @@ const Todo = () => {
 				</DialogActions>
 			</Dialog>
 
-			<Header />
+			<Header fullName={fullName} />
 
 			<div className="todo__content">
 				<AppBar position="static" color="default" className="todo__appbar">
@@ -92,14 +103,7 @@ const Todo = () => {
 					</Button>
 				</AppBar>
 				<TabPanel>
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							maxHeight: '75vh',
-							overflowY: 'auto'
-						}}
-					>
+					<div className="todo__all__list">
 						<List style={{ width: '100%' }}>
 							<Lists head />
 
