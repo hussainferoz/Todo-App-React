@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NoItems = ({ children }) => {
-	return <div className="noitems__container">{children}</div>;
+	return <p className="noitems__container">{children}</p>;
 };
 
 export default NoItems;

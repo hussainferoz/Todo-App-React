@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 
-import { AppBar, Tabs, Tab, Button, List } from '@material-ui/core';
+import {
+	AppBar,
+	Tabs,
+	Tab,
+	Button,
+	List,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogContentText,
+	TextField,
+	DialogActions
+} from '@material-ui/core';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -13,37 +25,99 @@ const Todo = () => {
 		{ todoName: 'Butter', isDeleted: false },
 		{ todoName: 'Eggs', isDeleted: false }
 	]);
+	const [ modalVisibility, setModalVisibility ] = useState(false);
+	const [ todoNameValue, setTodoNameValue ] = useState('');
 
 	const handleDelete = (valueIndex) => {
 		settestData(testData.map((todo, index) => (index == valueIndex ? { ...todo, isDeleted: true } : todo)));
 	};
 
+	const handleAddTodo = () => {
+		if (todoNameValue) {
+			settestData([ { todoName: todoNameValue, isDeleted: false }, ...testData ]);
+			setModalVisibility(false);
+		}
+	};
+
+	const todoAvailable = testData.find((element) => element.isDeleted === false);
+
+	const handleModalClose = () => {
+		setModalVisibility(false);
+	};
+
+	const handleModalOpen = () => {
+		setModalVisibility(true);
+	};
+
+	const handleTodoValueChange = (event) => {
+		setTodoNameValue(event.target.value);
+	};
+
 	return (
 		<div className="todo__container">
+			<Dialog open={modalVisibility} onClose={handleModalClose}>
+				<DialogTitle>Add Todo</DialogTitle>
+				<DialogContent>
+					<DialogContentText>Add a new todo to your list.</DialogContentText>
+					<TextField
+						value={todoNameValue}
+						onChange={handleTodoValueChange}
+						autoFocus
+						margin="dense"
+						id="todoName"
+						label="Todo Name"
+						fullWidth
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleModalClose} color="primary">
+						Cancel
+					</Button>
+					<Button onClick={handleAddTodo} color="primary">
+						Add Todo
+					</Button>
+				</DialogActions>
+			</Dialog>
+
 			<Header />
+
 			<div className="todo__content">
 				<AppBar position="static" color="default" className="todo__appbar">
-					<Tabs textColor="primary" value={0} indicatorColor="white">
+					<Tabs textColor="primary" value={0} indicatorColor="primary">
 						<Tab label="All Todos" />
 					</Tabs>
-					<Button variant="contained" color="primary" className="add__task">
-						Add Task
+					<Button variant="contained" color="primary" className="add__todo" onClick={handleModalOpen}>
+						Add Todo
 					</Button>
 				</AppBar>
 				<TabPanel>
-					{true ? (
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							maxHeight: '75vh',
+							overflowY: 'auto'
+						}}
+					>
 						<List style={{ width: '100%' }}>
 							<Lists head />
-							{testData.map(
-								(todo, index) =>
-									todo.isDeleted ? null : (
-										<Lists key={index} itemName={todo.todoName} click={() => handleDelete(index)} />
-									)
+
+							{todoAvailable ? (
+								testData.map(
+									(todo, index) =>
+										todo.isDeleted ? null : (
+											<Lists
+												key={index}
+												itemName={todo.todoName}
+												click={() => handleDelete(index)}
+											/>
+										)
+								)
+							) : (
+								<NoItems>No Todos Available</NoItems>
 							)}
 						</List>
-					) : (
-						<NoItems>No Available Todos</NoItems>
-					)}
+					</div>
 				</TabPanel>
 			</div>
 		</div>
