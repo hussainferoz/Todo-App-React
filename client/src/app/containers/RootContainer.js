@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import LoginRoute from '../routes/LoginRoute';
 import TodoRoute from '../routes/TodoRoute';
 
+import { getTokenFromStorage } from '../redux/actions/authActions';
+
 const RootContainer = () => {
 	const token = useSelector((state) => state.authReducer.token);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getTokenFromStorage());
+	}, []);
+
 	return (
 		<Router>
 			<Switch>

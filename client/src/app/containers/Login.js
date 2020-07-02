@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
 import { Typography, TextField, InputAdornment, IconButton, Button } from '@material-ui/core';
-
 import { VisibilityOutlined, VisibilityOffOutlined, VpnKeyOutlined, EmailOutlined } from '@material-ui/icons';
+import { useDispatch } from 'react-redux';
+import { getTokenFromServer } from '../redux/actions/authActions';
 
 const Login = () => {
 	const [ showPassword, setShowPassword ] = useState(false);
 	const [ password, setPassword ] = useState('');
 	const [ email, setEmail ] = useState('');
+
+	const dispatch = useDispatch();
 
 	const handleClickShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -23,6 +26,10 @@ const Login = () => {
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
+	};
+
+	const handleLogin = () => {
+		dispatch(getTokenFromServer(email, password));
 	};
 
 	return (
@@ -77,7 +84,7 @@ const Login = () => {
 								)
 							}}
 						/>
-						<Button variant="contained" color="primary" className="textfield__input">
+						<Button variant="contained" color="primary" className="textfield__input" onClick={handleLogin}>
 							Login
 						</Button>
 					</span>
