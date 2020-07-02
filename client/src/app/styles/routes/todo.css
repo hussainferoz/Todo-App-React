@@ -53,3 +53,9 @@
 	max-height: 75vh;
 	overflow-y: auto;
 }
+
+.todo__loading {
+	display: flex;
+	margin-top: 30px;
+	justify-content: center;
+}

@@ -11,7 +11,8 @@ import {
 	DialogContent,
 	DialogContentText,
 	TextField,
-	DialogActions
+	DialogActions,
+	CircularProgress
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTodo, fetchUserData } from '../redux/actions/todoActions';
@@ -22,11 +23,12 @@ import NoItems from '../components/NoItems';
 import TabPanel from '../components/TabPanel';
 
 const Todo = () => {
-	const { fullName, todos, token } = useSelector((state) => {
-		const { todoReducer: { fullName, todos }, authReducer: { token } } = state;
+	const { fullName, todos, isLoading, token } = useSelector((state) => {
+		const { todoReducer: { fullName, todos, isLoading }, authReducer: { token } } = state;
 		return {
 			fullName,
 			todos,
+			isLoading,
 			token
 		};
 	});
@@ -98,7 +100,13 @@ const Todo = () => {
 					<Tabs textColor="primary" value={0} indicatorColor="primary">
 						<Tab label="All Todos" />
 					</Tabs>
-					<Button variant="contained" color="primary" className="add__todo" onClick={handleModalOpen}>
+					<Button
+						variant="contained"
+						color="primary"
+						className="add__todo"
+						onClick={handleModalOpen}
+						disabled={isLoading}
+					>
 						Add Todo
 					</Button>
 				</AppBar>
@@ -106,8 +114,11 @@ const Todo = () => {
 					<div className="todo__all__list">
 						<List style={{ width: '100%' }}>
 							<Lists head />
-
-							{todoAvailable ? (
+							{isLoading ? (
+								<div className="todo__loading">
+									<CircularProgress />
+								</div>
+							) : todoAvailable ? (
 								todos.map(
 									(todo, index) =>
 										todo.isDeleted ? null : (

@@ -19,6 +19,9 @@ export const fetchUserData = (token) => async (dispatch) => {
 
 	dispatch({
 		type: SET_USER_DATA,
-		data
+		data: {
+			...data,
+			isLoading: false
+		}
 	});
 };

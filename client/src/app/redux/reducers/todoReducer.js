@@ -2,7 +2,8 @@ import { UPDATE_TODOS, SET_USER_DATA } from '../actions/todoActions';
 
 const initialState = {
 	fullName: '',
-	todos: []
+	todos: [],
+	isLoading: true
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const todoReducer = (state = initialState, action) => {
 			return {
 				...state,
 				fullName: action.data.fullName,
-				todos: action.data.todos
+				todos: action.data.todos,
+				isLoading: false
 			};
 
 		default:
