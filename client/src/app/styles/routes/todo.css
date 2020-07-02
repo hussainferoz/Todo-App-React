@@ -32,15 +32,6 @@
 	background-color: #ffffff !important;
 }
 
-.noDisplay {
-	display: none;
-}
-
-.display {
-	display: flex;
-	flex-grow: 1;
-}
-
 .add__task {
 	height: 40px;
 	margin-top: auto !important;

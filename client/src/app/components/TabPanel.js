@@ -1,7 +1,7 @@
 import React from 'react';
 
-const TabPanel = ({ children, value, index }) => {
-	return <div className={value !== index ? 'noDisplay' : 'display'}>{value === index && children}</div>;
+const TabPanel = ({ children }) => {
+	return <div>{children}</div>;
 };
 
 export default TabPanel;

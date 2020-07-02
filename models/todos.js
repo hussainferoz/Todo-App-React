@@ -8,8 +8,7 @@ const TodoSchema = mongoose.Schema({
 	todo: [
 		{
 			todoName: String,
-			completed: Boolean,
-			priority: String
+			isDeleted: Boolean
 		}
 	]
 });
