@@ -4,10 +4,10 @@ export const UPDATE_TODOS = 'UPDATE_TODOS';
 export const SET_USER_DATA = 'SET_USER_DATA';
 
 export const addTodo = (newTodoItem, updatedTodo, token) => async (dispatch) => {
-	const { todoName, isDeleted } = newTodoItem;
+	const { todoName, isCompleted, isDeleted } = newTodoItem;
 	await Axios.post(
 		'/api/todo/add',
-		{ todo: { todoName, isDeleted } },
+		{ todo: { todoName, isCompleted, isDeleted } },
 		{
 			headers: {
 				'auth-token': token

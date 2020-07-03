@@ -17,6 +17,7 @@ const UsersSchema = mongoose.Schema({
 	todos: [
 		{
 			todoName: String,
+			isCompleted: Boolean,
 			isDeleted: Boolean
 		}
 	]

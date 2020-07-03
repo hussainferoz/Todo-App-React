@@ -48,8 +48,8 @@ const Todo = () => {
 
 	const handleAddTodo = () => {
 		if (todoNameValue) {
-			const newTodoItem = { todoName: todoNameValue, isDeleted: false };
-			const updatedTodo = [ newTodoItem, ...todos ];
+			const newTodoItem = { todoName: todoNameValue, isCompleted: false, isDeleted: false };
+			const updatedTodo = [ ...todos, newTodoItem ];
 			dispatch(addTodo(newTodoItem, updatedTodo, token));
 			setTodoNameValue('');
 			setModalVisibility(false);
