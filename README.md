@@ -17,7 +17,14 @@ npm install
 
        JWTSECRET=<PLACE YOUR jwt secret here>
 
-3. Start the project from your root directory.
+3. Manually add a user record in mongodb database
+
+       
+       email: String
+       password: bcrpyt hash code
+       todo: []
+       
+4. Start the project from your root directory.
 
    ```bash
    npm run dev-server
