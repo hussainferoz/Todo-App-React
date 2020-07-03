@@ -15,7 +15,8 @@ import {
 	CircularProgress
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, deleteTodo, completeTodo, fetchUserData } from '../redux/actions/todoActions';
+import { addTodo, deleteTodo, completeTodo, resetTodo, fetchUserData } from '../redux/actions/todoActions';
+import { removeToken } from '../redux/actions/authActions';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -23,10 +24,9 @@ import NoItems from '../components/NoItems';
 import TabPanel from '../components/TabPanel';
 
 const Todo = () => {
-	const { fullName, todos, isLoading, token } = useSelector((state) => {
-		const { todoReducer: { fullName, todos, isLoading }, authReducer: { token } } = state;
+	const { todos, isLoading, token } = useSelector((state) => {
+		const { todoReducer: { todos, isLoading }, authReducer: { token } } = state;
 		return {
-			fullName,
 			todos,
 			isLoading,
 			token
@@ -77,6 +77,11 @@ const Todo = () => {
 		setTodoNameValue(event.target.value);
 	};
 
+	const handleLogout = () => {
+		dispatch(resetTodo());
+		dispatch(removeToken());
+	};
+
 	return (
 		<div className="todo__container">
 			<Dialog open={modalVisibility} onClose={handleModalClose}>
@@ -109,7 +114,7 @@ const Todo = () => {
 				</DialogActions>
 			</Dialog>
 
-			<Header fullName={fullName} />
+			<Header clickLogout={handleLogout} />
 
 			<div className="todo__content">
 				<AppBar position="static" color="default" className="todo__appbar">

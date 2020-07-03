@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
-import { AccountCircleOutlined } from '@material-ui/icons';
+import { Typography, Button } from '@material-ui/core';
 
-const header = ({ fullName }) => {
+const header = ({ clickLogout }) => {
 	return (
 		<div className="header__container">
 			<div className="header__bar">
@@ -11,8 +10,9 @@ const header = ({ fullName }) => {
 					<Typography variant="h6">The Todo App</Typography>
 				</div>
 				<div className="header__bar__right">
-					<AccountCircleOutlined />
-					<Typography>{fullName}</Typography>
+					<Button className="header__button" onClick={clickLogout}>
+						Logout
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -10,10 +10,6 @@ const UsersSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	fullName: {
-		type: String,
-		required: true
-	},
 	todos: [
 		{
 			todoName: String,

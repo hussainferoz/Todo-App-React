@@ -2,6 +2,7 @@ import Axios from 'axios';
 
 export const UPDATE_TODOS = 'UPDATE_TODOS';
 export const SET_USER_DATA = 'SET_USER_DATA';
+export const RESET = 'RESET';
 
 export const addTodo = (newTodoItem, updatedTodo, token) => async (dispatch) => {
 	const { todoName, isCompleted, isDeleted } = newTodoItem;
@@ -58,6 +59,12 @@ export const completeTodo = (valueIndex, todos, token) => async (dispatch) => {
 	dispatch({
 		type: UPDATE_TODOS,
 		todos: updatedTodo
+	});
+};
+
+export const resetTodo = () => (dispatch) => {
+	dispatch({
+		type: RESET
 	});
 };
 

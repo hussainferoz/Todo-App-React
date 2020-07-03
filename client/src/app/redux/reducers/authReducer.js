@@ -1,4 +1,4 @@
-import { SET_TOKEN } from '../actions/authActions';
+import { SET_TOKEN, REMOVE_TOKEN } from '../actions/authActions';
 
 const initialState = {
 	token: null
@@ -9,6 +9,10 @@ const authReducer = (state = initialState, action) => {
 		case SET_TOKEN:
 			return {
 				token: action.token
+			};
+		case REMOVE_TOKEN:
+			return {
+				token: null
 			};
 
 		default:

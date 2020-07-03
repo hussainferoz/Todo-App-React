@@ -8,8 +8,8 @@ exports.getLogin = async (request, response) => {
 		const userId = request.userId;
 
 		//Find the user's data by userId and return the data to the user
-		const { fullName, todos } = await Users.findById(userId);
-		return response.json({ fullName, todos });
+		const { todos } = await Users.findById(userId);
+		return response.json({ todos });
 	} catch (error) {
 		console.error(error.message);
 		return response.json({ message: 'Server Error' });

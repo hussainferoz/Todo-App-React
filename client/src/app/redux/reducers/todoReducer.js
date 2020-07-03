@@ -1,7 +1,6 @@
-import { UPDATE_TODOS, SET_USER_DATA } from '../actions/todoActions';
+import { UPDATE_TODOS, SET_USER_DATA, RESET } from '../actions/todoActions';
 
 const initialState = {
-	fullName: '',
 	todos: [],
 	isLoading: true
 };
@@ -16,9 +15,14 @@ const todoReducer = (state = initialState, action) => {
 		case SET_USER_DATA:
 			return {
 				...state,
-				fullName: action.data.fullName,
 				todos: action.data.todos,
 				isLoading: false
+			};
+		case RESET:
+			return {
+				...state,
+				todos: [],
+				isLoading: true
 			};
 
 		default:
