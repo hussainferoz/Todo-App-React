@@ -4,4 +4,9 @@
 
 .list_end span {
 	text-align: end;
+	padding-right: 15px;
+}
+
+.list__complete {
+	text-decoration: line-through;
 }

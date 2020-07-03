@@ -41,6 +41,26 @@ export const deleteTodo = (valueIndex, todos, token) => async (dispatch) => {
 	});
 };
 
+export const completeTodo = (valueIndex, todos, token) => async (dispatch) => {
+	const updatedTodo = todos;
+	updatedTodo[valueIndex].isCompleted = true;
+
+	await Axios.post(
+		'/api/todo/complete',
+		{ valueIndex },
+		{
+			headers: {
+				'auth-token': token
+			}
+		}
+	);
+
+	dispatch({
+		type: UPDATE_TODOS,
+		todos: updatedTodo
+	});
+};
+
 export const fetchUserData = (token) => async (dispatch) => {
 	const { data } = await Axios.get('/api/login', {
 		headers: {

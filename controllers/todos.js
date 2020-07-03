@@ -16,3 +16,13 @@ exports.deleteTodo = async (request, response) => {
 	});
 	response.json({ message: 'Todo item successfully deleted' });
 };
+
+exports.completeTodo = async (request, response) => {
+	const userId = request.userId;
+	const { valueIndex } = request.body;
+	await Users.findByIdAndUpdate(userId, null, null, (error, doc) => {
+		doc.todos[valueIndex].isCompleted = true;
+		doc.save();
+	});
+	response.json({ message: 'Todo item successfully Completed' });
+};

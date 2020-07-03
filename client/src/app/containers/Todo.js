@@ -15,7 +15,7 @@ import {
 	CircularProgress
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, deleteTodo, fetchUserData } from '../redux/actions/todoActions';
+import { addTodo, deleteTodo, completeTodo, fetchUserData } from '../redux/actions/todoActions';
 
 import Header from '../components/Header';
 import Lists from '../components/Lists';
@@ -36,11 +36,14 @@ const Todo = () => {
 	const [ todoNameValue, setTodoNameValue ] = useState('');
 	const [ addLoading, setAddLoading ] = useState(false);
 
-	useEffect(() => {
-		dispatch(fetchUserData(token));
-	}, []);
-
 	const dispatch = useDispatch();
+
+	useEffect(
+		() => {
+			dispatch(fetchUserData(token));
+		},
+		[ dispatch, token ]
+	);
 
 	const handleDelete = (valueIndex) => {
 		dispatch(deleteTodo(valueIndex, todos, token));
@@ -54,6 +57,10 @@ const Todo = () => {
 			setTodoNameValue('');
 			setModalVisibility(false);
 		}
+	};
+
+	const handleTodoComplete = (valueIndex) => {
+		dispatch(completeTodo(valueIndex, todos, token));
 	};
 
 	const todoAvailable = todos.find((element) => element.isDeleted === false);
@@ -134,7 +141,9 @@ const Todo = () => {
 											<Lists
 												key={index}
 												itemName={todo.todoName}
-												click={() => handleDelete(index)}
+												completed={todo.isCompleted}
+												clickDelete={() => handleDelete(index)}
+												clickComplete={() => handleTodoComplete(index)}
 											/>
 										)
 								)

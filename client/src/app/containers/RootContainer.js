@@ -12,9 +12,12 @@ const RootContainer = () => {
 	const token = useSelector((state) => state.authReducer.token);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getTokenFromStorage());
-	}, []);
+	useEffect(
+		() => {
+			dispatch(getTokenFromStorage());
+		},
+		[ dispatch ]
+	);
 
 	return (
 		<Router>

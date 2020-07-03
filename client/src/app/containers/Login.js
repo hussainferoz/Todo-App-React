@@ -37,7 +37,7 @@ const Login = () => {
 			<div className="login__content">
 				<div className="login__content__image">
 					<Typography variant="h3">The Todo App</Typography>
-					<img src={require('../../assets/logo.png')} />
+					<img src={require('../../assets/logo.png')} alt="" />
 				</div>
 				<div className="login__content__form">
 					<span className="form__heading">
@@ -62,7 +62,6 @@ const Login = () => {
 							className="textfield__input"
 							type={showPassword ? 'text' : 'password'}
 							label="Enter Password"
-							type={showPassword ? 'text' : 'password'}
 							value={password}
 							onChange={(event) => handlePasswordChange(event)}
 							InputProps={{

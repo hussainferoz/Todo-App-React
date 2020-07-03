@@ -1,24 +1,36 @@
 import React, { Fragment } from 'react';
 
-import { ListItem, ListItemText, Divider, ListItemSecondaryAction, IconButton } from '@material-ui/core';
-import { DeleteOutlined } from '@material-ui/icons';
+import { ListItem, ListItemText, Divider, ListItemIcon, IconButton, Tooltip } from '@material-ui/core';
+import { DeleteOutlined, CheckOutlined } from '@material-ui/icons';
 
-const Lists = ({ head, itemName, click }) => {
+const Lists = ({ head, itemName, completed, clickDelete, clickComplete }) => {
 	return (
 		<Fragment>
 			{head ? (
 				<ListItem>
 					<ListItemText className="list__head__font_weight" primary="Todo Name" />
-					<ListItemText className="list__head__font_weight list_end" primary="Delete Todo" />
+					<ListItemText className="list__head__font_weight list_end" primary="Todo Actions" />
 				</ListItem>
 			) : (
 				<ListItem>
-					<ListItemText primary={itemName} />
-					<ListItemSecondaryAction>
-						<IconButton onClick={click}>
-							<DeleteOutlined />
-						</IconButton>
-					</ListItemSecondaryAction>
+					<ListItemText primary={itemName} className={completed && 'list__complete'} />
+					{completed ? null : (
+						<ListItemIcon>
+							<Tooltip title="Mark Complete">
+								<IconButton onClick={clickComplete}>
+									<CheckOutlined />
+								</IconButton>
+							</Tooltip>
+						</ListItemIcon>
+					)}
+
+					<ListItemIcon>
+						<Tooltip title="Delete Todo">
+							<IconButton onClick={clickDelete}>
+								<DeleteOutlined />
+							</IconButton>
+						</Tooltip>
+					</ListItemIcon>
 				</ListItem>
 			)}
 			<Divider />
