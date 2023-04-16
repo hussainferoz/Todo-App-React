@@ -13,7 +13,7 @@ dotenv.config();
 //Database connection
 connectDb();
 
-const app = express();
+const app = express()
 
 //MiddleWares
 app.use(express.json({ extended: false }));
